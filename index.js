@@ -95,7 +95,7 @@ class Swiper extends Component {
         return (
             <Image
                 style={{width:width,height:150}}
-                source={require('../images/home/load.jpg')}
+                source={require('./load.jpg')}
             />
         )
     }
