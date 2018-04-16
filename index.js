@@ -18,7 +18,7 @@ class Swiper extends Component {
         bounces:true,
         loop:true,
         index:0,
-        showsButtons:true
+        showsButtons:false
     }
 
     constructor(props) {
