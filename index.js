@@ -61,23 +61,9 @@ class Swiper extends Component {
      * @memberof Swiper
      */
     renderSwiperComponent = () =>{
-        const {
-            height,index,
-            dot,activeDot,
-            autoplay,paginationStyle,
-            autoplayTimeout,bounces,
-            loop,showsButtons
-        } = this.props
-        const swiperProps = {
-            height,index,
-            dot,activeDot,
-            autoplay,paginationStyle,
-            autoplayTimeout,bounces,
-            loop,showsButtons
-        }
         return (
                 <SwiperComponent
-                    {...swiperProps}
+                    {...this.props}
                     dot={this.getDot()}
                     activeDot={this.getActiveDot()}
                 >
@@ -101,6 +87,10 @@ class Swiper extends Component {
     }
 
     render() {
+        const {isLoading} = this.props
+        if (!isLoading){
+            return this.renderSwiperComponent()
+        }
         return (
             <View style={{width,height:150}}>
                 {
