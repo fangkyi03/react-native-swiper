@@ -103,6 +103,7 @@ export default class extends Component {
    * @type {Object}
    */
   static propTypes = {
+    limitScroll:PropTypes.bool,
     horizontal: PropTypes.bool,
     children: PropTypes.node.isRequired,
     containerStyle: PropTypes.oneOfType([
@@ -170,6 +171,7 @@ export default class extends Component {
     autoplayTimeout: 2.5,
     autoplayDirection: true,
     index: 0,
+    limitScroll:false,
     onIndexChanged: () => null
   }
 
@@ -461,11 +463,16 @@ export default class extends Component {
     if (state.dir === 'x') x = diff * state.width
     if (state.dir === 'y') y = diff * state.height
 
-    if (Platform.OS !== 'ios') {
-      this.scrollView && this.scrollView[animated ? 'setPage' : 'setPageWithoutAnimation'](diff)
-    } else {
+    if (this.props.limitScroll){
       this.scrollView && this.scrollView.scrollTo({ x, y, animated })
+    }else {
+      if (Platform.OS !== 'ios') {
+        this.scrollView && this.scrollView[animated ? 'setPage' : 'setPageWithoutAnimation'](diff)
+      } else {
+        this.scrollView && this.scrollView.scrollTo({ x, y, animated })
+      }
     }
+
 
     // update scroll state
     this.internals.isScrolling = true
@@ -620,6 +627,22 @@ export default class extends Component {
   }
 
   renderScrollView = pages => {
+    if (this.props.limitScroll) {
+      return (
+        <ScrollView ref={this.refScrollView}
+          {...this.props}
+          {...this.scrollViewPropOverrides()}
+          contentContainerStyle={[styles.wrapperIOS, this.props.style]}
+          contentOffset={this.state.offset}
+          onScrollBeginDrag={this.onScrollBegin}
+          onMomentumScrollEnd={this.onScrollEnd}
+          onScrollEndDrag={this.onScrollEndDrag}
+          style={this.props.scrollViewStyle}>
+          {pages}
+        </ScrollView>
+       )
+    }
+
     if (Platform.OS === 'ios') {
       return (
         <ScrollView ref={this.refScrollView}
