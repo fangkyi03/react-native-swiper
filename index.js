@@ -19,7 +19,8 @@ class Swiper extends Component {
         loop:true,
         index:0,
         showsButtons:false,
-        isLoading:true
+        isLoading:true,
+        delayShowTime:1000
     }
 
     constructor(props) {
@@ -29,7 +30,7 @@ class Swiper extends Component {
         }
         setTimeout(() => {
             this.setState({swiperShow:true})
-        }, 3000);
+        }, this.props.delayShowTime);
     }
     
     /**
