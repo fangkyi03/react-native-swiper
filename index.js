@@ -80,21 +80,22 @@ class Swiper extends Component {
      * @memberof Swiper
      */
     renderNormalComponent = () =>{
+        const {height} = this.props
         return (
             <Image
-                style={{width:width,height:150}}
+                style={{width:width,height}}
                 source={require('./load.jpg')}
             />
         )
     }
 
     render() {
-        const {isLoading} = this.props
+        const {isLoading,height} = this.props
         if (!isLoading){
             return this.renderSwiperComponent()
         }
         return (
-            <View style={{width,height:150}}>
+            <View style={{width,height}}>
                 {
                     this.state.swiperShow 
                     ? this.renderSwiperComponent()
