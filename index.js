@@ -66,8 +66,8 @@ class Swiper extends Component {
         return (
                 <SwiperComponent
                     {...this.props}
-                    dot={this.getDot()}
-                    activeDot={this.getActiveDot()}
+                    // dot={this.getDot()}
+                    // activeDot={this.getActiveDot()}
                 >
                     {this.props.children}
                 </SwiperComponent>
